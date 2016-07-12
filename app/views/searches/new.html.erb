@@ -1,0 +1,8 @@
+<h2>Search for Jobs!</h2>
+<%= form_for @search do |f| %>
+  Companies: <%= f.text_field :company_list %>
+  Categories: <%= f.text_field :category_list %>
+  Levels: <%= f.text_field :level_list %>
+  Locations: <%= f.text_field :location_list %>
+  <%= f.submit "Submit" %>
+<% end %>
