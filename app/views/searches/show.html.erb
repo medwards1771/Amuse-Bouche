@@ -1,6 +1,12 @@
-<h3>Here are your search results!</h3>
+<h3>Your Search Returned <%= @jobs.count %> Results!</h3>
 
-Companies: <%= @search.company_results %><br>
-Categories: <%= @search.category_list %><br>
-Levels: <%= @search.level_list %><br>
-Locations: <%= @search.location_list %><br>
+<!-- Add link to view job in json format -->
+
+<% @jobs.each do |job| %>
+  <h2>Job Title: <%= job.title %></h2>
+  <p><a href="<%= job.landing_page %>">View Position</a></p>
+  <p>Company: <%= job.company %></p>
+  <p><a href="<%= job.company_website %>">View Company</a></p>
+<% end %>
+
+
