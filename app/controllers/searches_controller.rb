@@ -7,6 +7,7 @@ class SearchesController < ApplicationController
 
   def new
     @search = Search.new
+    @companies = Company.all
   end
 
   def create
@@ -21,6 +22,6 @@ class SearchesController < ApplicationController
   private
 
   def search_params
-    params[:search].permit(:company_list, :category_list, :level_list, :location_list)
+    params[:search].permit(categories: [], companies: [])
   end
 end

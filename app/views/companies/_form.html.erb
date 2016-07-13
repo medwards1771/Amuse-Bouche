@@ -1,0 +1,5 @@
+<select multiple name="search[companies][]">
+<% @companies.each do |company| %>
+  <option value="<%= company.name %>"><%= company.name %></option>
+<% end %>
+</select>

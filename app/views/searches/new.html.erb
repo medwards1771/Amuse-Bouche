@@ -1,8 +1,10 @@
 <h2>Search for Jobs!</h2>
-<%= form_for @search do |f| %>
-  <p>Companies: <%= f.text_field :company_list %></p>
-  <p>Categories: <%= f.text_field :category_list %></p>
-  <p>Levels: <%= f.text_field :level_list %></p>
-  <p>Locations: <%= f.text_field :location_list %></p>
-  <%= f.submit "Submit" %>
-<% end %>
+
+<form action="/searches" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <h3><label>Companies</label></h3>
+  <%= render partial: 'companies/form', locals: { companies: @companies } %>
+  <h3><label>Categories</label></h3>
+  <%= render partial: 'categories/form' %>
+  <p><input type="submit" value="Submit"></p>
+</form>

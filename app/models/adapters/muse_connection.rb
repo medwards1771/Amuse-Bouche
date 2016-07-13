@@ -1,6 +1,6 @@
 class Adapters::MuseConnection
-  def query(params)
-    HTTParty.get("https://api-v2.themuse.com/jobs?api_key=#{secret_key}&#{params}&page=1")
+  def query(endpoint, page, params = nil)
+    HTTParty.get("https://api-v2.themuse.com#{endpoint}?api_key=#{secret_key}#{params}&page=#{page}")
   end
 
   private

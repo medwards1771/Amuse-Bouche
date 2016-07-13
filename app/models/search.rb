@@ -1,5 +1,5 @@
 class Search < ActiveRecord::Base
-
+  attr_accessor :company_data, :category_data, :level_data, :location_data
 
 # ADD THIS AS A COLUMN TO THE DATABASE???
 # after creating a new search, update_column with huge long text?
@@ -12,11 +12,27 @@ class Search < ActiveRecord::Base
 
   def data
     {
-      companies: self.company_list.split(", "),
-      categories: self.category_list.split(", "),
-      levels: self.level_list.split(", "),
-      locations: self.location_list.split(", ")
+      companies: company_data,
+      categories: category_data,
+      levels: level_data,
+      locations: location_data
     }
+  end
+
+  def company_data
+    @company_data = self.companies == "" ? [] : JSON.parse(self.companies)
+  end
+
+  def category_data
+    @category_data = self.categories == "" ? [] : JSON.parse(self.categories)
+  end
+
+  def level_data
+    @level_data = self.levels == "" ? [] : JSON.parse(self.levels)
+  end
+
+  def location_data
+    @location_data = self.locations == "" ? [] : JSON.parse(self.locations)
   end
 
   def create_jobs(jobs)
