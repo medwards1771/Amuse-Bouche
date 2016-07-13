@@ -6,7 +6,7 @@ class Adapters::JobClient
   end
 
   def query_api
-    connection.query(clean_params)
+    connection.query('/jobs', 1, params=clean_params)
   end
 
   private
@@ -29,7 +29,7 @@ class Adapters::JobClient
     level_params = test3.map{ |elem| "level=" + "#{elem}" }.join('')
     location_params = test4.map{ |elem| "location=" + "#{elem}" }.join('')
     array = [company_params, category_params, level_params, location_params].reject!(&:empty?)
-    @clean_params = array.join('&')
+    @clean_params = array.map{ |elem| "&#{elem}"}.join('')
   end
 
   def add_plusses(array)
