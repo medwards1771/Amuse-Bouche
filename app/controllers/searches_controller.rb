@@ -2,7 +2,7 @@ class SearchesController < ApplicationController
 
   def show
     @search = Search.find(params[:id])
-    @jobs = @search.job_results
+    @jobs = @search.get_results
   end
 
   def new

@@ -1,11 +1,18 @@
 class Search < ActiveRecord::Base
-  attr_accessor :company_data, :category_data, :level_data, :location_data
+  attr_reader :company_data, :category_data, :level_data, :location_data, :jobs, :job_objects, :job_count
 
-# ADD THIS AS A COLUMN TO THE DATABASE???
-# after creating a new search, update_column with huge long text?
-  def job_results
-    response = Adapters::JobClient.new(data).query_api
-    jobs = create_jobs(response['results'])
+  def get_results
+    job_client ||= Adapters::JobClient.new(data)
+    @jobs = job_client.job_results
+    if job_count > 20
+      @job_objects = create_jobs(jobs[0..49])
+    else
+      @job_objects = create_jobs(jobs)
+    end
+  end
+
+  def job_count
+    jobs.count
   end
 
   private
@@ -38,7 +45,7 @@ class Search < ActiveRecord::Base
   def create_jobs(jobs)
     jobs.map do |job|
       @job = Job.new(
-        { uid: job['id'],
+        { uid: job['id'].to_i,
           title: job['name'],
           landing_page: job['refs']['landing_page'],
           company: job['company']['name'],
