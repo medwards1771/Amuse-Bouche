@@ -2,9 +2,27 @@
 
 <form action="/searches" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <h3><label>Companies</label></h3>
-  <%= render partial: 'companies/form', locals: { companies: @companies } %>
-  <h3><label>Categories</label></h3>
-  <%= render partial: 'categories/form' %>
+  <table>
+    <tr>
+      <td>
+        <h3><label>Search by Company</label></h3>
+        <%= render partial: 'companies/form', locals: { companies: @companies } %>
+      </td>
+      <td>
+        <h3><label>Search by Location</label></h3>
+        <%= render partial: 'locations/form' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h3><label>Search by Category</label></h3>
+        <%= render partial: 'categories/form' %>
+      </td>
+      <td>
+        <h3><label>Search by Level</label></h3>
+        <%= render partial: 'levels/form' %>
+      </td>
+    </tr>
+  </table>
   <p><input type="submit" value="Submit"></p>
 </form>
