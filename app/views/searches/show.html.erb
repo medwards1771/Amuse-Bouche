@@ -1,12 +1,16 @@
-<h3>Your Search Returned <%= @jobs.count %> Results!</h3>
+<%= link_to 'Back', root_url %>
 
-<!-- Add link to view job in json format -->
+<h2>Your Search Returned <%= @search.job_count%> Results!</h2>
+<% if @search.job_count > 50 %>
+  <h3>Here are the first 50:</h3>
+<% end %>
 
 <% @jobs.each do |job| %>
-  <h2>Job Title: <%= job.title %></h2>
-  <p><a href="<%= job.landing_page %>">View Position</a></p>
-  <p>Company: <%= job.company %></p>
-  <p><a href="<%= job.company_website %>">View Company</a></p>
+  <strong>Job Title: <%= job.title %></strong><br>
+  <a href="<%= job.landing_page %>">View Position</a><br>
+  Company: <%= job.company %><br>
+  <a href="<%= job.company_website %>">View Company</a><br>
+  <p><img src="<%= job.company_pic %>" width="450" height="300"></p>
 <% end %>
 
 
