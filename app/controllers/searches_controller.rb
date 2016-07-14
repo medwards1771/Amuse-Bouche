@@ -22,6 +22,6 @@ class SearchesController < ApplicationController
   private
 
   def search_params
-    params[:search].permit(categories: [], companies: [])
+    params[:search].permit(categories: [], companies: [], levels: [], locations: [])
   end
 end

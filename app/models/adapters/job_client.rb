@@ -36,8 +36,8 @@ class Adapters::JobClient
   end
 
   def query_params
-    array = [company_params, category_params].reject(&:empty?)
-    array.map{ |elem| "&#{elem}" }.join('')
+    query_params = [company_params, category_params, level_params, location_params].reject(&:empty?)
+    query_params.map{ |param_set| "&#{param_set}" }.join('')
   end
 
   def company_params
@@ -53,6 +53,19 @@ class Adapters::JobClient
     categories.present? ? 'category=' + categories.join("&category=") : ""
   end
 
+  def level_params
+    levels = search_params[:levels]
+    levels = replace_spaces(levels) if levels.select{ |level| level.include?(" ") }.present?
+    levels.present? ? 'level=' + levels.join("&level=") : ""
+  end
+
+  def location_params
+    locations = search_params[:locations]
+    locations = replace_commas(locations) if locations.select{ |location| location.include?(",") }.present?
+    locations = replace_spaces(locations) if locations.select{ |location| location.include?(" ") }.present?
+    locations.present? ? 'location=' + locations.join("&location=") : ""
+  end
+
   def replace_spaces(array)
     array.map{ |elem| elem.gsub(' ', '+') }
   end
@@ -61,7 +74,7 @@ class Adapters::JobClient
     array.map{ |elem| elem.gsub('&', '%26') }
   end
 
-  def replace_commas_plusses(array)
-    array.map{ |elem| elem.gsub(',', '%2C').gsub(' ', '+') }
+  def replace_commas(array)
+    array.map{ |elem| elem.gsub(',', '%2C') }
   end
 end
