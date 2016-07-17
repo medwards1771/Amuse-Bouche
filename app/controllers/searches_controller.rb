@@ -6,18 +6,13 @@ class SearchesController < ApplicationController
     @companies = Company.all
   end
 
-  def show
-    @search = Search.find(params[:id])
-    @job_results = @search.job_results
-  end
-
   def create
     @search = Search.create(search_params)
     job_results = Adapters::JobClient.new(search_params).results
     job_results.map do |job|
       JobResult.create(job_result_params(job, @search.id))
     end
-    redirect_to search_path(@search)
+    redirect_to search_job_results_path(@search)
   end
 
   private
