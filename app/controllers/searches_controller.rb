@@ -1,4 +1,5 @@
 class SearchesController < ApplicationController
+  attr_reader :job_results
 
   def new
     @search = Search.new
@@ -7,10 +8,8 @@ class SearchesController < ApplicationController
 
   def create
     @search = Search.create(search_params)
-    job_results = Adapters::JobClient.new(search_params).results
-    job_results.map do |job|
-      JobResult.create(job_result_params(job, @search.id))
-    end
+    @job_results = Adapters::JobClient.new(search_params).results
+    @search.job_results.create(new_jobs)
     redirect_to search_job_results_path(@search)
   end
 
@@ -20,7 +19,13 @@ class SearchesController < ApplicationController
     params[:search].permit(categories: [], companies: [], levels: [], locations: [])
   end
 
-  def job_result_params(job, search_id)
+  def new_jobs
+    job_results.map do |job|
+      make_job(job, @search.id)
+    end
+  end
+
+  def make_job(job, search_id)
     { uid: job['id'].to_i,
       title: job['name'],
       landing_page: job['refs']['landing_page'],
