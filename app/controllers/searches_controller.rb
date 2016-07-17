@@ -1,5 +1,4 @@
 class SearchesController < ApplicationController
-  attr_reader :job_results
 
   def new
     @search = Search.new
