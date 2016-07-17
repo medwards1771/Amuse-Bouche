@@ -10,12 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713203205) do
+ActiveRecord::Schema.define(version: 20160717194527) do
 
   create_table "companies", force: :cascade do |t|
     t.integer "uid"
     t.string  "name"
     t.string  "short_name"
+  end
+
+  create_table "job_results", force: :cascade do |t|
+    t.integer  "uid"
+    t.string   "title"
+    t.string   "landing_page"
+    t.integer  "company_id"
+    t.string   "company_name"
+    t.integer  "search_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "searches", force: :cascade do |t|

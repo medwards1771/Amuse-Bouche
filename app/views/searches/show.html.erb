@@ -1,16 +1,14 @@
 <%= link_to 'Back', root_url %>
 
-<h2>Your Search Returned <%= @search.job_count%> Results!</h2>
-<% if @search.job_count > 50 %>
-  <h3>Here are the first 50:</h3>
+<h2>Your Search Returned -- Results!</h2>
+<% if '--'.to_i > 20 %>
+  <h3>Here are the first 20:</h3>
 <% end %>
 
-<% @jobs.each do |job| %>
+<% @job_results.each do |job| %>
   <strong>Job Title: <%= job.title %></strong><br>
   <a href="<%= job.landing_page %>" target="_blank">View Position</a><br>
-  Company: <%= job.company %><br>
+  Company: <%= job.company_name %><br>
   <a href="<%= job.company_website %>" target="_blank">View Company</a><br>
   <p><img src="<%= job.company_pic %>" width="450" height="300"></p>
 <% end %>
-
-
