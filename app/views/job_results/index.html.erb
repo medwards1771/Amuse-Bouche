@@ -1,9 +1,6 @@
 <%= link_to 'Back', root_url %>
 
 <h2>Your Search Returned <%= @job_results.count %> Results!</h2>
-<% if @job_results.count > 20 %>
-  <h3>Here are the first 20:</h3>
-<% end %>
 
 <% @job_results.each do |job| %>
   <strong>Job Title: <%= job.title %></strong><br>

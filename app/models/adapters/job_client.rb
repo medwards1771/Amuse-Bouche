@@ -6,7 +6,10 @@ class Adapters::JobClient
   end
 
   def results
-    response['results']
+    results = pages.map do |page|
+        connection.query('/jobs', page, params=query_params)['results']
+      end.flatten
+    results
   end
 
   private
